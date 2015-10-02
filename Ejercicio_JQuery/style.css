@@ -1,0 +1,57 @@
+﻿body {
+    font-family: "Calibri";
+}
+
+#izq {
+    display: inline;
+    float: left;
+    background-color: seagreen;
+    min-height: 20px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    margin: 5px;
+}
+
+#derecha {
+    background-color:lightblue;
+    display: inline;
+    float: left;
+    min-height: 20px;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+#barraTareas {
+    
+}
+#listado {
+        text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+
+table {
+    border-collapse: collapse;
+    margin: 10px;
+    padding: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#nuevo {
+    
+}
+
+#textos {
+    
+}
+
+#grabar {
+    
+}
