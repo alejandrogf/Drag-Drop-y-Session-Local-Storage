@@ -1,7 +1,8 @@
 ﻿var url = "https://alumnoscurso.azure-mobile.net/Tables/curso";
 
 function cargarListado() {
-    $.get(url, crearTabla);
+    //$.get(url, crearTabla(data));
+    $.getJSON(url, null, crearTabla);
 };
 
 function obtenerObjeto() {
@@ -26,13 +27,13 @@ function crearTabla(data) {
         salida += "<tr>";
         salida += "<td>" + data[i].nombre + "</td>";
         salida += "<td>" + data[i].duracion + "</td>";
-        salida += "<td>" + '<button type="button" onclick="borrar(\"' + data[i].id + '\")">Borrar</button></td>';
+        salida += "<td>" + '<button type="button" id="btnBorrar" onclick="borrarRegistro(\"' + data[i].id + '\")">Borrar</button></td>';
         salida += "</tr>";
-    }
+    };
     salida += "</table>";
 
     //Se inserta la tabla creada en la capa del html
-    
+
     $("#listado").html(salida);
 };
 
@@ -44,7 +45,11 @@ function mostrarCapaNuevoReg() {
 }
 
 function aceptarBuscar() {
-    
+    var u = url;
+    if ($("txtBuscar").val != "") {
+        u += "?$filter=nombre eq '" + $("#txtBuscar").val() + "'";
+    };
+    $.getJSON(u, null, crearTabla);
 }
 
 function grabarRegistro() {
@@ -72,8 +77,6 @@ function grabarRegistro() {
 
         $("#txtNombre").val("");
         $("#txtDuracion").val("");
-    } else() {
-        
     };
 
     $("#derecha").hide();
@@ -82,6 +85,23 @@ function grabarRegistro() {
 
 function borrarRegistro() {
 
+    $.ajax({
+        method: "delete",
+        url: url + id,
+        success: function () {
+            cargarListado();
+        },
+        error: function (err) {
+            console.log(err);
+        }
+        //Estos no son necesarios porque el DELETE no pasa ningún dato.
+        //Por tanto no hace falta especificar formato de dato, etc
+        //data: JSON.stringify(registro),
+        //dataType: "json",
+        //headers: {
+        //    "Content-Type": "application/json"
+
+    });
 }
 
 
@@ -89,10 +109,10 @@ function borrarRegistro() {
 $(document).ready(function () {
     $("#derecha").hide();
     cargarListado();
-    
+
     $("#btnAceptar").click(aceptarBuscar);
     $("#btnRecargar").click(cargarListado);
     $("#btnNuevo").click(mostrarCapaNuevoReg);
     $("#btnGuardar").click(grabarRegistro);
-    $("#btnBorrar").click(borrarRegistro);
+
 });
